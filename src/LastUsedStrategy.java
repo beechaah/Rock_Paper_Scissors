@@ -1,28 +1,31 @@
 import java.util.ArrayList;
 import java.util.Random;
 
-public class LastUsedStrategy implements Strategy {
+public class LastUsedStrategy implements Strategy
+{
     @Override
-    public String determineMove(ArrayList<String> playerMoves) {
-        if (playerMoves.isEmpty()) {
-            // If this is the first move, fall back to random
+    public String determineMove(ArrayList<String> playerMoves)
+    {
+        if (playerMoves.isEmpty())
+        {
             String[] moves = {"Rock", "Paper", "Scissors"};
             return moves[new Random().nextInt(moves.length)];
         }
 
-        // Get the last move used by the player
+
         String lastMove = playerMoves.get(playerMoves.size() - 1);
 
-        // Determine the computer's move that will win against the last move by the player
-        switch (lastMove) {
+
+        switch (lastMove)
+        {
             case "Rock":
-                return "Paper"; // Paper beats Rock
+                return "Paper";
             case "Paper":
-                return "Scissors"; // Scissors beats Paper
+                return "Scissors";
             case "Scissors":
-                return "Rock"; // Rock beats Scissors
+                return "Rock";
             default:
-                return "Rock"; // Default to Rock
+                return "Rock";
         }
     }
 }

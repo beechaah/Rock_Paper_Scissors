@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 
-public interface Strategy {
+public interface Strategy
+{
     String determineMove(ArrayList<String> playerMoves);
 }

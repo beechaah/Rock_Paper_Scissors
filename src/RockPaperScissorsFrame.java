@@ -9,7 +9,8 @@ import java.util.ArrayList;
 import java.util.Random;
 import javax.imageio.ImageIO;
 
-public class RockPaperScissorsFrame extends JFrame {
+public class RockPaperScissorsFrame extends JFrame
+{
     private int playerWins = 0;
     private int computerWins = 0;
     private int ties = 0;
@@ -22,7 +23,8 @@ public class RockPaperScissorsFrame extends JFrame {
     private ArrayList<String> playerMoves = new ArrayList<>();
     private Strategy strategy;
 
-    public RockPaperScissorsFrame() {
+    public RockPaperScissorsFrame()
+    {
         setTitle("Rock Paper Scissors Game");
         setSize(1000, 800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -31,7 +33,7 @@ public class RockPaperScissorsFrame extends JFrame {
         JPanel buttonPanel = new JPanel();
         buttonPanel.setBorder(BorderFactory.createTitledBorder("Choose your move"));
 
-        // Load and resize images for buttons
+
         JButton rockButton = new JButton(new ImageIcon(resizeImage("src/rock.jpg", 100, 100))); // Adjust size as needed
         JButton paperButton = new JButton(new ImageIcon(resizeImage("src/paper.jpg", 100, 100))); // Adjust size as needed
         JButton scissorsButton = new JButton(new ImageIcon(resizeImage("src/scissors.jpg", 100, 100))); // Adjust size as needed
@@ -75,8 +77,10 @@ public class RockPaperScissorsFrame extends JFrame {
         quitButton.addActionListener(e -> System.exit(0));
     }
 
-    private BufferedImage resizeImage(String imagePath, int width, int height) {
-        try {
+    private BufferedImage resizeImage(String imagePath, int width, int height)
+    {
+        try
+        {
             BufferedImage originalImage = ImageIO.read(new File(imagePath));
             Image resizedImage = originalImage.getScaledInstance(width, height, Image.SCALE_SMOOTH);
             BufferedImage bufferedResizedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
@@ -84,24 +88,28 @@ public class RockPaperScissorsFrame extends JFrame {
             g2d.drawImage(resizedImage, 0, 0, null);
             g2d.dispose();
             return bufferedResizedImage;
-        } catch (IOException e) {
+        } catch (IOException e)
+        {
             e.printStackTrace();
             return null;
         }
     }
 
-    private class MoveButtonListener implements ActionListener {
+    private class MoveButtonListener implements ActionListener
+    {
         private String playerMove;
 
-        public MoveButtonListener(String playerMove) {
+        public MoveButtonListener(String playerMove)
+        {
             this.playerMove = playerMove;
         }
 
         @Override
-        public void actionPerformed(ActionEvent e) {
+        public void actionPerformed(ActionEvent e)
+        {
             playerMoves.add(playerMove);
 
-            strategy = selectRandomStrategy(); // Use a random strategy
+            strategy = selectRandomStrategy();
             String computerMove = strategy.determineMove(playerMoves);
             String result = determineWinner(playerMove, computerMove);
 
@@ -110,8 +118,10 @@ public class RockPaperScissorsFrame extends JFrame {
         }
     }
 
-    private Strategy selectRandomStrategy() {
-        Strategy[] strategies = {
+    private Strategy selectRandomStrategy()
+    {
+        Strategy[] strategies =
+        {
                 new LeastUsedStrategy(),
                 new MostUsedStrategy(),
                 new LastUsedStrategy(),
@@ -121,26 +131,34 @@ public class RockPaperScissorsFrame extends JFrame {
         return strategies[random.nextInt(strategies.length)];
     }
 
-    private String determineWinner(String playerMove, String computerMove) {
-        if (playerMove.equals(computerMove)) {
+    private String determineWinner(String playerMove, String computerMove)
+    {
+        if (playerMove.equals(computerMove))
+        {
             return playerMove + " equals " + computerMove + ". (Tie)";
         } else if ((playerMove.equals("Rock") && computerMove.equals("Scissors")) ||
                 (playerMove.equals("Paper") && computerMove.equals("Rock")) ||
-                (playerMove.equals("Scissors") && computerMove.equals("Paper"))) {
+                (playerMove.equals("Scissors") && computerMove.equals("Paper")))
+        {
             return playerMove + " beats " + computerMove + ". (Player wins)";
-        } else {
+        } else
+        {
             return computerMove + " beats " + playerMove + ". (Computer wins)";
         }
     }
 
-    private void updateStats(String result) {
-        if (result.contains("Player wins")) {
+    private void updateStats(String result)
+    {
+        if (result.contains("Player wins"))
+        {
             playerWins++;
             playerWinsField.setText(String.valueOf(playerWins));
-        } else if (result.contains("Computer wins")) {
+        } else if (result.contains("Computer wins"))
+        {
             computerWins++;
             computerWinsField.setText(String.valueOf(computerWins));
-        } else {
+        } else
+        {
             ties++;
             tiesField.setText(String.valueOf(ties));
         }
